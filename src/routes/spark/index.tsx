@@ -283,30 +283,33 @@ export default class Spark extends Component<Props> {
                     </p>
                     <p>By @Anthony_Barry_</p>
                     <hr />
-                    <p>Disclaimer</p>
-                    <ul>
-                        <li>
-                            <p>
-                                Given an XRP Address, this tool will check for a
-                                transaction on the XRP Ledger that contains a
-                                MessageKey with an ETH Compatible address.
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                This tool is provided on a voluntary and best
-                                effort basis. It is highly advised that you
-                                check multiple tools and do your own
-                                verification.
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                This tool was created by me and I am not
-                                affilated with Flare.Networks.
-                            </p>
-                        </li>
-                        {/* <li>
+                    <div class={style.disclaimer}>
+                        <p>Disclaimer</p>
+                        <ul>
+                            <li>
+                                <p>
+                                    Given an XRP Address, this tool will check
+                                    for a transaction on the XRP Ledger that
+                                    contains a MessageKey with an ETH Compatible
+                                    address.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    This tool is provided on a voluntary and
+                                    best effort basis. It is highly advised that
+                                    you check other sources and do your own
+                                    verification.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    This tool was created by me. This tool and
+                                    myself are not affilated with
+                                    Flare.Networks.
+                                </p>
+                            </li>
+                            {/* <li>
                             <p>
                                 Source code for this tool can be found on{" "}
                                 <a href="https://github.com/bitsleft/FlareTools">
@@ -318,7 +321,8 @@ export default class Spark extends Component<Props> {
                                 </a>
                             </p>
                         </li> */}
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
             </div>
         );
