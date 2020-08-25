@@ -3,9 +3,9 @@ import { Route, Router, RouterOnChangeArgs, route } from "preact-router";
 
 import Home from "../routes/home";
 import Spark from "../routes/spark";
-import Profile from "../routes/profile";
 import NotFoundPage from "../routes/notfound";
 import Header from "./header";
+import Disclaimer from "../routes/disclaimer";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -24,6 +24,7 @@ const App: FunctionalComponent = () => {
             <Header />
             <Router onChange={handleRoute}>
                 <Route path="/" component={Home} />
+                <Route path="/disclaimer" component={Disclaimer} />
                 <Route path="/spark" component={Spark} />
                 <Route path="/spark/:xrpAddress" component={Spark} />
                 <NotFoundPage default />

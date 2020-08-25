@@ -13,12 +13,13 @@ const Header: FunctionalComponent = () => {
                         height="40"
                     ></img>
                 </span>{" "}
-                Flare Tools
+                FlareTools
             </h1>
             <nav>
                 {/* <Link activeClassName={style.active} href="/">
                     Home
                 </Link> */}
+
                 <Link activeClassName={style.active} href="/spark">
                     Spark
                 </Link>

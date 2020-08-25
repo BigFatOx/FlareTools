@@ -13,6 +13,7 @@ export default class Spark extends Component<Props> {
         haveResults: false,
         error: "",
         xrpAddress: "",
+        xrpAddressInput: "",
         xrpBalance: 0,
         ethAddress: "",
         messageKey: "",
@@ -25,6 +26,7 @@ export default class Spark extends Component<Props> {
         super();
         if (props.xrpAddress) {
             this.state.xrpAddress = props.xrpAddress;
+            this.state.xrpAddressInput = props.xrpAddress;
             this.checkMessageKey();
         }
     }
@@ -48,8 +50,13 @@ export default class Spark extends Component<Props> {
 
     changeRoute = (e: any) => {
         e.preventDefault();
-        route(`/spark/${this.state.xrpAddress}`, true);
-        this.checkMessageKey();
+        if (
+            this.state.xrpAddressInput &&
+            this.state.xrpAddressInput.length > 0
+        ) {
+            route(`/spark/${this.state.xrpAddressInput}`, true);
+            this.checkMessageKey();
+        }
     };
 
     checkMessageKey = async () => {
@@ -64,11 +71,11 @@ export default class Spark extends Component<Props> {
                 xrpAddressValid: true
             });
 
-            if (this.state.xrpAddress === null) {
+            if (this.state.xrpAddressInput === null) {
                 this.setStateInvalid();
                 throw "Invalid XRP Address";
             }
-            const validAddress = this.state.xrpAddress.match(
+            const validAddress = this.state.xrpAddressInput.match(
                 /^r[A-HJ-NP-Za-km-z1-9]{24,34}$|^X[A-HJ-NP-Za-km-z1-9]{46}$|^T[A-HJ-NP-Za-km-z1-9]{46}$/g
             );
 
@@ -83,7 +90,7 @@ export default class Spark extends Component<Props> {
             });
 
             await api.connect();
-            const info = await api.getTransactions(this.state.xrpAddress, {
+            const info = await api.getTransactions(this.state.xrpAddressInput, {
                 types: ["settings"],
                 limit: 30
             });
@@ -98,7 +105,11 @@ export default class Spark extends Component<Props> {
                 });
                 return;
             }
-            this.setState({ xrpAddressValid: true, loading: false });
+            this.setState({
+                xrpAddress: this.state.xrpAddressInput,
+                xrpAddressValid: true,
+                loading: false
+            });
 
             if (info.length === 0) {
                 this.setState({
@@ -148,17 +159,18 @@ export default class Spark extends Component<Props> {
         return (
             <div class={style.spark}>
                 <h1>
-                    Check your claim to the <span>Spark Token</span>
+                    Check your claim for the <span>Spark Token</span>
                 </h1>
                 {/* <Button>Hello World</Button> */}
+                <p class={style.label}>Enter your XRP wallet address</p>
                 <form class="form-inline">
                     <input
                         type="text"
-                        name="xrpAddress"
-                        value={state.xrpAddress}
-                        onInput={linkState(this, "xrpAddress")}
+                        name="xrpAddressInput"
+                        value={state.xrpAddressInput}
+                        onInput={linkState(this, "xrpAddressInput")}
                         class="form-control"
-                        placeholder="Enter your XRP wallet address,  rXXXX..."
+                        placeholder="rXXXX..."
                     ></input>
                     <button onClick={this.changeRoute} class="btn btn-primary">
                         Check
@@ -170,14 +182,15 @@ export default class Spark extends Component<Props> {
                     ) : state.error ? (
                         <div class={style.error}>{state.error}</div>
                     ) : state.ethAddressValid && state.haveResults ? (
-                        <h4>
+                        <h4 class={style.green}>
                             {this.makeIcon(true)} Congratulations, you're all
-                            set.
+                            set
                         </h4>
                     ) : state.haveResults ? (
                         <h4>
-                            <span class="red">
-                                {this.makeIcon(false)} XRP account NOT signed.
+                            <span class={style.red}>
+                                {this.makeIcon(false)} XRP account NOT linked to
+                                Spark
                             </span>
                         </h4>
                     ) : null}
@@ -210,7 +223,7 @@ export default class Spark extends Component<Props> {
                                     <td>
                                         {this.makeIcon(state.messageKeyValid)}
                                     </td>
-                                    <td>MessageKey</td>
+                                    <td>Message Key</td>
                                     <td>
                                         <b>{state.messageKey}</b>
                                     </td>
@@ -227,21 +240,48 @@ export default class Spark extends Component<Props> {
                                     </td>
                                     <td>Linked Address</td>
                                     <td>
-                                        <b>{state.ethAddress}</b>
+                                        <b>
+                                            {state.ethAddressValid ? (
+                                                <a
+                                                    href={`https://etherscan.io/address/${state.ethAddress}`}
+                                                >
+                                                    {state.ethAddress}
+                                                </a>
+                                            ) : (
+                                                state.ethAddress
+                                            )}
+                                        </b>
                                     </td>
                                 </tr>
                             </table>
                             {!state.ethAddressValid ? (
-                                <p>
+                                <p class={style.center}>
+                                    Your account{" "}
+                                    <span style="text-decoration: underline">
+                                        will not
+                                    </span>{" "}
+                                    receive <b>Spark Tokens</b>. See{" "}
                                     <a href="https://coil.com/p/wietse/Prepare-for-claiming-your-Spark-token-Flare-Networks-a-tool-for-XUMM-XRPToolkit/NkXJQUqpi">
                                         How to claim your Spark Tokens
-                                    </a>
+                                    </a>{" "}
+                                    to enable your account, then come back to
+                                    verify that it's linked properly.
                                 </p>
                             ) : null}
                         </div>
                     ) : (
                         <div></div>
                     )}
+                </div>
+                <div class={style.links}>
+                    <p>
+                        Compatible wallets to claim Spark Token:{" "}
+                        <a href="https://shop.ledger.com/?r=ecdc3f9965ab">
+                            Ledger Nano
+                        </a>{" "}
+                        | <a href="https://xumm.app/">XUMM</a>
+                    </p>
+                    <p>By @Anthony_Barry_</p>
                 </div>
             </div>
         );

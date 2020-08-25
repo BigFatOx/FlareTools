@@ -22,6 +22,29 @@
     </head>
     <body>
         <% preact.bodyEnd %>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-analytics.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyCQr86ygPVDiR1hPeWfWJ0oBJyC1UAjUWc",
+                authDomain: "flare-tools.firebaseapp.com",
+                databaseURL: "https://flare-tools.firebaseio.com",
+                projectId: "flare-tools",
+                storageBucket: "flare-tools.appspot.com",
+                messagingSenderId: "390623806029",
+                appId: "1:390623806029:web:1bab25cefdc357cae09204",
+                measurementId: "G-VZ9ZL14TW4"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
         <script
             type="application/javascript"
