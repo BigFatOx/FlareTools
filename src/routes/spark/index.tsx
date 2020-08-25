@@ -123,11 +123,11 @@ export default class Spark extends Component<Props> {
 
             info.forEach((element: any) => {
                 const messageKey = element.specification.messageKey;
-                // Message Key format: 0200000000000000000000000041B7DACCE6F6F7C3C46562744E04CC8C2DAC0702
+                // Message Key format: 02000000000000000000000000XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 const ethAddress = messageKey.replace(/^02[0]{24}/g, "0x");
 
                 if (ethAddress) {
-                    // ETH address format: 0x41b7DACce6f6f7C3c46562744e04cC8C2dac0702
+                    // ETH address format: 0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                     const ethAddressMatch = ethAddress.match(
                         /^0x[a-fA-F0-9]{40}$/g
                     );
@@ -282,6 +282,43 @@ export default class Spark extends Component<Props> {
                         | <a href="https://xumm.app/">XUMM</a>
                     </p>
                     <p>By @Anthony_Barry_</p>
+                    <hr />
+                    <p>Disclaimer</p>
+                    <ul>
+                        <li>
+                            <p>
+                                Given an XRP Address, this tool will check for a
+                                transaction on the XRP Ledger that contains a
+                                MessageKey with an ETH Compatible address.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                This tool is provided on a voluntary and best
+                                effort basis. It is highly advised that you
+                                check multiple tools and do your own
+                                verification.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                This tool was created by me and I am not
+                                affilated with Flare.Networks.
+                            </p>
+                        </li>
+                        {/* <li>
+                            <p>
+                                Source code for this tool can be found on{" "}
+                                <a href="https://github.com/bitsleft/FlareTools">
+                                    Github
+                                </a>{" "}
+                                -{" "}
+                                <a href="https://github.com/bitsleft/FlareTools/issues">
+                                    Bug reports and feedback welcome
+                                </a>
+                            </p>
+                        </li> */}
+                    </ul>
                 </div>
             </div>
         );
