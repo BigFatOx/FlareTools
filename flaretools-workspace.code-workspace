@@ -4,5 +4,7 @@
 		"path": "."
 	}
 ],
-  "settings": {}
+"settings": {
+	"tslint.packageManager": "yarn"
+}
 }

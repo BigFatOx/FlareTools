@@ -6,6 +6,7 @@ import Spark from "../routes/spark";
 import NotFoundPage from "../routes/notfound";
 import Header from "./header";
 import Disclaimer from "../routes/disclaimer";
+import Stats from "../routes/stats";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -25,6 +26,7 @@ const App: FunctionalComponent = () => {
             <Router onChange={handleRoute}>
                 <Route path="/" component={Home} />
                 <Route path="/disclaimer" component={Disclaimer} />
+                <Route path="/stats" component={Stats} />
                 <Route path="/spark" component={Spark} />
                 <Route path="/spark/:xrpAddress" component={Spark} />
                 <NotFoundPage default />

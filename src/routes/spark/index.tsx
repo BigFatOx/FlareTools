@@ -44,11 +44,11 @@ export default class Spark extends Component<Props> {
         });
     }
 
-    componentDidCatch(error: any, errorInfo: any) {
+    componentDidCatch(error: any, errorInfo: any): void {
         this.setStateInvalid();
     }
 
-    changeRoute = (e: any) => {
+    changeRoute = (e: any): void => {
         e.preventDefault();
         if (
             this.state.xrpAddressInput &&
@@ -75,15 +75,16 @@ export default class Spark extends Component<Props> {
                 this.setStateInvalid();
                 throw "Invalid XRP Address";
             }
-            const validAddress = this.state.xrpAddressInput.match(
-                /^r[A-HJ-NP-Za-km-z1-9]{24,34}$|^X[A-HJ-NP-Za-km-z1-9]{46}$|^T[A-HJ-NP-Za-km-z1-9]{46}$/g
-            );
+            // eslint-disable-next-line prettier/prettier
+            const validAddress = this.state.xrpAddressInput
+                .match(/^r[A-HJ-NP-Za-km-z1-9]{24,34}$|^X[A-HJ-NP-Za-km-z1-9]{46}$|^T[A-HJ-NP-Za-km-z1-9]{46}$/g);
 
             if (validAddress === null) {
                 this.setStateInvalid();
                 throw "Invalid XRP Address";
             }
 
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             const api = new ripple.RippleAPI({
                 server: "wss://s2.ripple.com/"
@@ -128,9 +129,7 @@ export default class Spark extends Component<Props> {
 
                 if (ethAddress) {
                     // ETH address format: 0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    const ethAddressMatch = ethAddress.match(
-                        /^0x[a-fA-F0-9]{40}$/g
-                    );
+                    const ethAddressMatch = ethAddress.match(/^0x[a-fA-F0-9]{40}$/g);
                     if (
                         ethAddressMatch !== null &&
                         ethAddressMatch.length === 1
@@ -151,11 +150,12 @@ export default class Spark extends Component<Props> {
     };
 
     makeIcon(valid: boolean) {
-        if (valid) return <img src="/assets/icons/done-green-18dp.svg"></img>;
-        else return <img src="/assets/icons/clear-red-18dp.svg"></img>;
+        if (valid) return <span class={style.green}><i class="material-icons">check_circle</i></span>;
+        else return <span class={style.red}><i class="material-icons">error</i></span>;
     }
 
-    render(props: any, state: any) {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    render(_props: any, state: any) {
         return (
             <div class={style.spark}>
                 <h1>
@@ -163,22 +163,27 @@ export default class Spark extends Component<Props> {
                 </h1>
                 {/* <Button>Hello World</Button> */}
                 <p class={style.label}>Enter your XRP wallet address</p>
-                <form class="form-inline">
-                    <input
-                        type="text"
-                        name="xrpAddressInput"
-                        value={state.xrpAddressInput}
-                        onInput={linkState(this, "xrpAddressInput")}
-                        class="form-control"
-                        placeholder="rXXXX..."
-                    ></input>
-                    <button onClick={this.changeRoute} class="btn btn-primary">
-                        Check
-                    </button>
+                <form>
+                    <div class="mdl-textfield mdl-js-textfield" style="width:100%">
+                        <input
+                            type="text"
+                            name="xrpAddressInput"
+                            value={state.xrpAddressInput}
+                            onInput={linkState(this, "xrpAddressInput")}
+                            placeholder="rXXXX..."
+                        ></input>
+                        <button onClick={this.changeRoute} class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Check
+                        </button>
+                    </div>
+
+
                 </form>
                 <div class={style.results}>
                     {state.loading ? (
-                        <div class={style.loading}>Fetching settings...</div>
+                        <div class={style.loading}>
+                            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                        </div>
                     ) : state.error ? (
                         <div class={style.error}>{state.error}</div>
                     ) : state.ethAddressValid && state.haveResults ? (
@@ -187,142 +192,73 @@ export default class Spark extends Component<Props> {
                             set
                         </h4>
                     ) : state.haveResults ? (
-                        <h4>
-                            <span class={style.red}>
-                                {this.makeIcon(false)} XRP account NOT linked to
-                                Spark
-                            </span>
+                        <h4 class={style.red}>
+                            {this.makeIcon(false)}{"  "} XRP account NOT linked to Spark
+
                         </h4>
                     ) : null}
 
                     {state.haveResults ? (
                         <div>
                             <table>
-                                <tr
-                                    className={
-                                        state.xrpAddressValid
-                                            ? "valid"
-                                            : "notvalid"
-                                    }
-                                >
-                                    <td>
-                                        {this.makeIcon(state.xrpAddressValid)}
-                                    </td>
+                                <tr className={state.xrpAddressValid ? "valid" : "notvalid"}>
+                                    <td>{this.makeIcon(state.xrpAddressValid)}</td>
                                     <td>XRP Address</td>
                                     <td>
                                         <b>{state.xrpAddress}</b>
                                     </td>
                                 </tr>
-                                <tr
-                                    className={
-                                        state.messageKeyValid
-                                            ? "valid"
-                                            : "notvalid"
-                                    }
-                                >
-                                    <td>
-                                        {this.makeIcon(state.messageKeyValid)}
-                                    </td>
+                                <tr className={state.messageKeyValid ? "valid" : "notvalid"}>
+                                    <td>{this.makeIcon(state.messageKeyValid)}</td>
                                     <td>Message Key</td>
                                     <td>
                                         <b>{state.messageKey}</b>
                                     </td>
                                 </tr>
-                                <tr
-                                    className={
-                                        state.ethAddressValid
-                                            ? "valid"
-                                            : "notvalid"
-                                    }
-                                >
-                                    <td>
-                                        {this.makeIcon(state.ethAddressValid)}
-                                    </td>
+                                <tr className={state.ethAddressValid ? "valid" : "notvalid"}>
+                                    <td>{this.makeIcon(state.ethAddressValid)}</td>
                                     <td>Linked Address</td>
                                     <td>
                                         <b>
                                             {state.ethAddressValid ? (
-                                                <a
-                                                    href={`https://etherscan.io/address/${state.ethAddress}`}
-                                                >
-                                                    {state.ethAddress}
-                                                </a>
+                                                <a href={`https://etherscan.io/address/${state.ethAddress}`}>{state.ethAddress}</a>
                                             ) : (
-                                                state.ethAddress
-                                            )}
+                                                    state.ethAddress
+                                                )}
                                         </b>
                                     </td>
                                 </tr>
                             </table>
                             {!state.ethAddressValid ? (
                                 <p class={style.center}>
-                                    Your account{" "}
-                                    <span style="text-decoration: underline">
-                                        will not
-                                    </span>{" "}
-                                    receive <b>Spark Tokens</b>. See{" "}
+                                    {this.makeIcon(false)}<br />
+                                    Your account <span style="text-decoration: underline">will not</span> receive <b>Spark Tokens</b>. See{" "}
                                     <a href="https://coil.com/p/wietse/Prepare-for-claiming-your-Spark-token-Flare-Networks-a-tool-for-XUMM-XRPToolkit/NkXJQUqpi">
                                         How to claim your Spark Tokens
                                     </a>{" "}
-                                    to enable your account, then come back to
-                                    verify that it's linked properly.
+                                    and enable your account, then come back to verify that it's linked properly.
                                 </p>
                             ) : null}
                         </div>
                     ) : (
-                        <div></div>
-                    )}
+                            <div></div>
+                        )}
                 </div>
                 <div class={style.links}>
                     <p>
                         Compatible wallets to claim Spark Token:{" "}
-                        <a href="https://shop.ledger.com/?r=ecdc3f9965ab">
-                            Ledger Nano
-                        </a>{" "}
-                        | <a href="https://xumm.app/">XUMM</a>
+                        <a href="https://shop.ledger.com/?r=ecdc3f9965ab">Ledger Nano</a> |{" "}
+                        <a href="https://xumm.app/">XUMM</a>
                     </p>
-                    <p>By @Anthony_Barry_</p>
-                    <hr />
-                    <div class={style.disclaimer}>
-                        <p>Disclaimer</p>
-                        <ul>
-                            <li>
-                                <p>
-                                    Given an XRP Address, this tool will check
-                                    for a transaction on the XRP Ledger that
-                                    contains a MessageKey with an ETH Compatible
-                                    address.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    This tool is provided on a voluntary and
-                                    best effort basis. It is highly advised that
-                                    you check other sources and do your own
-                                    verification.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    This tool was created by me. This tool and
-                                    myself are not affilated with
-                                    Flare.Networks.
-                                </p>
-                            </li>
-                            {/* <li>
-                            <p>
-                                Source code for this tool can be found on{" "}
-                                <a href="https://github.com/bitsleft/FlareTools">
-                                    Github
-                                </a>{" "}
-                                -{" "}
-                                <a href="https://github.com/bitsleft/FlareTools/issues">
-                                    Bug reports and feedback welcome
-                                </a>
-                            </p>
-                        </li> */}
-                        </ul>
-                    </div>
+                    <p>
+                        For Ledger Nano users, account can be signed using {" "}
+                        <a href="https://www.xrptoolkit.com/">XRPToolkit</a>
+                    </p>
+                </div>
+                <div class={style.footer}>
+                    <p>
+                        Created By @Anthony_Barry_ - <a href="/disclaimer">Disclaimer</a>
+                    </p>
                 </div>
             </div>
         );

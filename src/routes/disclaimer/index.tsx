@@ -8,13 +8,40 @@ const Disclaimer: FunctionalComponent = () => {
             <h1>Disclaimer</h1>
             <ul>
                 <li>
-                    flare.tools is an independent tool that is not in anyway
-                    affilated with Flare Networks
+                    <p>
+                        Given an XRP Address, this tool will check for a
+                        transaction on the XRP Ledger that contains a MessageKey
+                        with an ETH Compatible address.
+                    </p>
                 </li>
+                <li>
+                    <p>
+                        This tool is provided on a voluntary and best effort
+                        basis. It is highly advised that you check other sources
+                        and do your own verification.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        This tool was created by me and I am not affilated with
+                        Flare.Networks.
+                    </p>
+                </li>
+                {/* <li>
+                            <p>
+                                Source code for this tool can be found on{" "}
+                                <a href="https://github.com/bitsleft/FlareTools">
+                                    Github
+                                </a>{" "}
+                                -{" "}
+                                <a href="https://github.com/bitsleft/FlareTools/issues">
+                                    Bug reports and feedback welcome
+                                </a>
+                            </p>
+                        </li> */}
             </ul>
-            <Link href="/">
-                <h4>Back to Home</h4>
-            </Link>
+
+            <Link href="/">Back</Link>
         </div>
     );
 };

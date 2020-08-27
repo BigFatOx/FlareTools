@@ -17,22 +17,17 @@
     table {
         padding: 5px;
     }
-
+    
     input[type="text"] {
-        width: calc(100% - 105px);
+        width: calc(100% - 85px);
         margin-right: 5px;
-        font-size: 22px;
-        padding: 10px;
-    }
-
-    button {
-        font-size: 22px;
-        width: 100px;
-        padding: 10px;
+        font-size: 26px;
+        padding:1px 10px;
     }
 
     form {
         margin: 5px 0;
+   
     }
 
     td {
@@ -82,6 +77,6 @@
     background-color: #efefef;
 }
 
-.disclaimer p {
-    font-size: 15px;
+.footer p {
+    font-size: 13px;
 }

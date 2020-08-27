@@ -6,18 +6,14 @@ const Header: FunctionalComponent = () => {
     return (
         <header class={style.header}>
             <h1>
-                <span>
-                    <img
-                        src="/assets/icons/construction-black-18dp.svg"
-                        width="40"
-                        height="40"
-                    ></img>
-                </span>{" "}
-                FlareTools
+                <i class="material-icons">construction</i> FlareTools
             </h1>
             <nav>
                 {/* <Link activeClassName={style.active} href="/">
                     Home
+                </Link>
+                <Link activeClassName={style.active} href="/stats">
+                    XRP/Spark Stats
                 </Link> */}
 
                 <Link activeClassName={style.active} href="/spark">
