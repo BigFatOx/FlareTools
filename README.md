@@ -1,16 +1,15 @@
 # FlareTools
 
-
-
-## Overview 
+## Overview
 
 This tool accepts an XRP Address as input and will find all `settings transactions` on the XRP Ledger that contain a MessageKey with a compatible ETH address.
 
 The format of the `MessageKey` is expected to be
-`^02[0]{24}[a-fA-F0-9]{40}$`
+`^02[0]{24}[A-F0-9]{40}$`
 `02000000000000000000000000XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 
 ### Dependencies
+
 Ripple API.
 The compiled version of the API is included in the assets folder, however to re-build the RippleAPI see: https://github.com/ripple/ripple-lib
 
