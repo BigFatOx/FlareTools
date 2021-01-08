@@ -7,7 +7,7 @@ const Header: FunctionalComponent = () => {
         <header class={style.header}>
             <h1>
                 <Link href="/">
-                    <img src="/assets/flare-logo.svg" width="35"></img>
+                    <img src="/assets/flare-tools-logo.svg" width="25"></img>
                     {"   "}flaretools
                 </Link>
             </h1>

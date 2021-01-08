@@ -3,45 +3,68 @@
     max-width: 800px;
     margin: 0px auto;
 
-    h1 {
-        font-size: 36px;
-        span {
-            color: black;
-        }
+    h3 {
+        color:#FFF;
+        font-size: 20px;
+        background-color: #192734;
+          padding:20px;
+        border-radius: 8px;
     }
-
     h4 {
-        padding: 0 10px;
-        margin-top: 10px;
+        padding: 0;
+        margin:0;
     }
     table {
         padding: 5px;
     }
     
     input[type="text"] {
-        width: calc(100% - 85px);
+        width: 100%;
         margin-right: 5px;
         font-size: 26px;
-        padding:1px 10px;
+        padding:15px;
+        border-radius: 8px;
+        background-color:rgb(37,51,65);
+        //border:1px solid rgb(56,68,77);
+        border: 0;
+        color:#FFF;
+        &:active,
+        &:focus{
+            border: 0;
+        }
+          
+    }
+    .results {
+        background-color: rgb(25,39,52);
+        color:#FFF;
+        border-radius: 8px;
+        //border:1px solid rgb(56,68,77);
+    }
+    button {
+        bottom:33px !important;
+        right: 13px;
     }
 
     form {
         margin: 5px 0;
-   
+        label {
+            color:#FFF;
+            padding:15px;
+        }
     }
 
     td {
         padding: 5px;
     }
-    p {
-        padding: 0;
-        font-size: 18px;
-    }
+
 
     .links {
-        margin: 20px auto;
-        width: 100%;
+         background-color: rgb(25,39,52);
+        color:#FFF;
+        padding:20px;
         font-size: 20px;
+        margin:20px 0;
+        border-radius: 8px;
     }
 }
 .label {
@@ -50,33 +73,59 @@
     font-weight: bold;
 }
 .red {
-    color: #cc0000;
+    color: #ff2e2e;
 }
 .green {
-    color: green;
+    color: #2ae22a
 }
-.results {
-    border: 1px solid #efefef;
+
+.panel{
+    padding: 10px;
+    background-color: #0c1821;
+    border-radius: 8px;
+    span {
+        color:orange;
+    }
+    ul {
+        list-style: none;
+        padding-left: 10px;
+    }
+    ul.ok li:before {
+        content: '✓ ';
+    }
+
+    ul.error li:before {
+
+        content:'✘ ';
+    }
+     ul.error li.bullet:before {
+
+        content:'• ';
+    }
 }
 
 .center {
     padding: 20px !important;
-    background-color: #efefef;
+    background-color: #0c1821;
     margin-bottom: 0;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
-.loading,
 .error {
     width: 100%;
-    background-color: #ff0000;
-    color: #fff;
+    color: #EFEFEF;
     padding: 5px;
 }
 .loading {
-    color: #333;
-    background-color: #efefef;
+    color: #EFEFEF;
 }
 
 .footer p {
     font-size: 13px;
+    color:rgb(86,100,113);
+}
+
+.hide {
+    display:none;
 }

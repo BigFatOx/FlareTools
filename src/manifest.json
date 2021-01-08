@@ -1,6 +1,6 @@
 {
-  "name": "FlareTools",
-  "short_name": "FlareTools",
+  "name": "flaretools",
+  "short_name": "flaretools",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

@@ -27,7 +27,7 @@ module.exports = {
         quotes: ['error', 'double'],
         'max-len': ['error', { code: 160 }],
         "editor.codeActionsOnSave": {
-            "source.fixAll": true
+            "source.fixAll": false
         }
     },
     settings: {
