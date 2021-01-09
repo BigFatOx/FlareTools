@@ -153,8 +153,14 @@ export default class Spark extends Component<Props> {
                 ethAddressValid: false,
                 ethAddress: "NOT FOUND",
             });
+
+
+            if (!this.state.towo.success) {
+                throw 'XRP account not eligible to claim spark'
+            }
+
             if (messageKey === null || messageKey === undefined) {
-                throw 'XRP account NOT linked to Spark';
+                throw 'Spark not claimed - XRP Account not linked';
             }
 
             // Message Key format: 02000000000000000000000000XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -254,10 +260,6 @@ export default class Spark extends Component<Props> {
                                                     Congratulations, you're all
                                                     set
                                                 </h4>
-                                            ) : state.haveResults ? (
-                                                <h4 class={style.red}>
-                                                    XRP account NOT linked to Spark
-                                                </h4>
                                             ) : null}
                                     </td>
                                 </tr>
@@ -271,21 +273,34 @@ export default class Spark extends Component<Props> {
                                     </td>
                                 </tr>
 
-                                <tr className={!state.haveResults ? style.hide : ""}>
+                                <tr className={state.haveResults && !this.state.towo.success ? "" : style.hide}>
                                     <td>{this.makeIcon(state.messageKeyValid)}</td>
                                     <td>Message Key</td>
                                     <td>
                                         <div class={style.panel}>
                                             <span>{state.messageKey}</span>
                                             <ul className={state.messageKeyValid || state.messageKey === "NOT FOUND" ? style.hide : style.error}>
-                                                <li>Invalid Message Key</li>
+                                                <li>This XRP account is not eligable to claim spark</li>
+
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr className={!state.haveResults || !this.state.towo.success ? style.hide : ""}>
+                                    <td>{this.makeIcon(state.messageKeyValid)}</td>
+                                    <td>Message Key</td>
+                                    <td>
+                                        <div class={style.panel}>
+                                            <span>{state.messageKey}</span>
+                                            <ul className={state.messageKeyValid || state.messageKey === "NOT FOUND" ? style.hide : style.error}>
+                                                <li>Message Key not found</li>
                                                 <li class={style.bullet}>Check that it starts with 02 followed by 24 zeros</li>
                                                 <li class={style.bullet}>Followed by 40 UPPPERCASE characters, A-F and 0-9</li>
                                             </ul>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr className={!state.haveResults ? style.hide : ""}>
+                                <tr className={!state.haveResults || !this.state.towo.success ? style.hide : ""}>
                                     <td>{this.makeIcon(state.ethAddressValid)}</td>
                                     <td>Flare Address</td>
                                     <td>
@@ -305,7 +320,7 @@ export default class Spark extends Component<Props> {
 
                                     </td>
                                 </tr>
-                                <tr className={!state.haveResults || state.error ? style.hide : ""}>
+                                <tr className={!state.haveResults || !state.towo.success ? style.hide : ""}>
                                     <td>{this.makeIcon(state.towo.xrpBalance > 0)}</td>
                                     <td>XRP Balance at Snapshot</td>
                                     <td>
@@ -314,7 +329,7 @@ export default class Spark extends Component<Props> {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr className={!state.haveResults || state.error ? style.hide : ""}>
+                                <tr className={!state.haveResults || !state.towo.success ? style.hide : ""}>
                                     <td>{this.makeIcon(state.towo.sparkClaim > 0)}</td>
                                     <td>Spark Claim</td>
                                     <td>
@@ -324,9 +339,9 @@ export default class Spark extends Component<Props> {
                                     </td>
                                 </tr>
                             </table>
-                            {!state.ethAddressValid && state.haveResults ? (
+                            {!state.ethAddressValid && state.haveResults && state.towo.success ? (
                                 <p class={style.center}>
-                                    You do not have a valid <b>Flare Address</b>. See{" "}
+                                    This XRP account is eligible to clamin spark, however it does not have a valid <b>Flare Address</b>. You have until 11th of June to claim.  See{" "}
                                     <a href="https://forum.flaretalk.com/t/how-to-make-your-spark-claim-from-your-xrp-account/18">
                                         How to claim your Spark Tokens
                                     </a>{" "}
